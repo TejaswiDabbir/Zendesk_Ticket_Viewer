@@ -23,7 +23,9 @@ module.exports = class API {
         })
         .catch(function (error) {
             console.log('caught Error');
+            debugger;
             let error_data = {};
+            let status = 500;
             if (error.response) {
               // Request made and server responded
               console.log(error.response.data);
@@ -34,6 +36,7 @@ module.exports = class API {
                   "data": error.response.data,
                   "status": error.response.status
               };
+              status = error.response.status;
             } else if (error.request) {
               // The request was made but no response was received
               console.log(error.request);
@@ -49,7 +52,7 @@ module.exports = class API {
                   "data": error.message
               };
             }
-            res.status(error.response.status).json(error_data);
+            res.status(status).json(error_data);
         });
     }
 
